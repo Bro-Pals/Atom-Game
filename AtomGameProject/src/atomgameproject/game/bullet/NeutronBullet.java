@@ -26,7 +26,7 @@ public class NeutronBullet extends BulletType {
                     ((GameAtom)affectee).addNeutron();
                 }
                 /// make bang sprite
-                GameWorld.getWorld().createSprite(new Point((int)parent.getX(), (int)parent.getY()), "img/sprites/collide1.png", 10);
+                GameWorld.getWorld().createSprite(new Point((int)parent.getX(), (int)parent.getY()), "img/sprites/collideBlue.png", 10);
                 parent.setShooter(null);
                 parent.remove();
             }

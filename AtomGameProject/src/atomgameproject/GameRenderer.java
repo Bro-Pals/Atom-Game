@@ -98,8 +98,7 @@ public class GameRenderer implements Renderable {
                 sprites.get(s).move();
                 sprites.get(s).decreaseLifeSpan();
                 if (sprites.get(s).isDead()) {
-                    sprites.remove(s);
-                    GameWorld.getWorld().getSprites().remove(s);
+                    GameWorld.getWorld().getSprites().remove(sprites.remove(s));
                     System.out.println("Removed a sprite");
                 } else {
                     gd.drawImage(sprites.get(s).getImage(), sprites.get(s).getPosition().x - (int) camera.getX(), sprites.get(s).getPosition().y - (int) camera.getY(), null);

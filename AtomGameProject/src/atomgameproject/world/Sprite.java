@@ -14,7 +14,7 @@ import java.awt.image.BufferedImage;
  */
 public class Sprite {
     
-    private int xVel, yVel, lifeSpan, initSpan;
+    private int xVel, yVel, lifeSpan;
     private Point position;
     private BufferedImage img;
     
@@ -24,7 +24,6 @@ public class Sprite {
         xVel = xV;
         yVel = yV;
         lifeSpan = lspan;
-        initSpan = lspan;
     }
     
     public Sprite(Point pos,  int lspan, String imgUrl) {
@@ -33,7 +32,6 @@ public class Sprite {
         xVel = 0;
         yVel = 0;
         lifeSpan = lspan;
-        initSpan = lspan;
     }
     
     public void decreaseLifeSpan() {
@@ -45,7 +43,7 @@ public class Sprite {
     }
     
     public boolean isDead() {
-        return (lifeSpan>initSpan);
+        return (lifeSpan<0);
     }
     
     public BufferedImage getImage() {
