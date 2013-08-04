@@ -156,7 +156,7 @@ public class PlayerAtom extends GameAtom implements KeyDownListener, KeyUpListen
         sm.setX(bulletLocX);
         sm.setY(bulletLocY);
         } catch(Exception e) { 
-            System.out.println("Mouse not there"); 
+          //  System.out.println("Mouse not there"); 
             sm.stopShooting();
         }
     //    System.out.println("Shooting1 is " + shooting[0] + " and Shooting2 is " + shooting[1] + "");

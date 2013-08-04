@@ -28,7 +28,7 @@ public class ShootManager implements Updatable {
         time2 = 0;
         time3 = 0; // pentuple buffereing!
         this.endTime = endTime;
-        System.out.println("Created ShootManager with endTime of " + endTime + "");
+        //System.out.println("Created ShootManager with endTime of " + endTime + "");
     }
 
     @Override
@@ -38,7 +38,7 @@ public class ShootManager implements Updatable {
         time1++;
         time2++;
         time3++;
-        System.out.println("CanShootRed: " + canShootRed + ", CanShootBlue: " + canShootBlue + ", Time:" + time + ", EndTime:" + endTime + ", ReadyToShoot: " + readyToShoot + "");
+       // System.out.println("CanShootRed: " + canShootRed + ", CanShootBlue: " + canShootBlue + ", Time:" + time + ", EndTime:" + endTime + ", ReadyToShoot: " + readyToShoot + "");
     }
     
     public void checkReady() {
