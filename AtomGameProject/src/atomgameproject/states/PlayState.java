@@ -71,8 +71,9 @@ public class PlayState extends GameState implements KeyDownListener {
 
     private void initGuis(GameDrawingPanel panel) {
         guis.addElement(new StabilityGui(player));
-        guis.addElement(new GuiClock());
-        guis.addElement(new StabilityTimer(player, panel));
+        GuiClock clock = new GuiClock();
+        guis.addElement(clock);
+            guis.addElement(new StabilityTimer(player, panel, clock, wrapper));
     }
     
     @Override
@@ -91,7 +92,7 @@ public class PlayState extends GameState implements KeyDownListener {
         bImage = guis.draw(bImage, graphics2d);
         if (paused) {
             graphics2d.setFont(new Font(Font.DIALOG, Font.BOLD, 28));
-            graphics2d.setColor(Color.RED);
+            graphics2d.setColor(Color.GREEN);
             graphics2d.drawString("Paused - Press p to unpause", (AtomGameMain.frameWidth/2)-220, (AtomGameMain.frameHeight/2)-10);
             graphics2d.drawString("Press q to go to menu", (AtomGameMain.frameWidth/2)-220, (AtomGameMain.frameHeight/2)+20);
         }
