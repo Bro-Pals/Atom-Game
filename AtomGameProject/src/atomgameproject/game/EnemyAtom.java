@@ -90,8 +90,8 @@ public class EnemyAtom extends GameAtom implements Updatable {
      
       public void updateCirclePlayer(EnemyAtom en, int radius) {
          PlayerAtom p = GameWorld.getWorld().getPlayer();
-         int targetX = (int)(p.getX()-(spread/2)+(Math.random()*spread));
-         int targetY = (int)(p.getY()-(spread/2)+(Math.random()*spread));
+         int targetX = (int)(p.getX()+(p.getWidth())-(spread/2)+(Math.random()*spread));
+         int targetY = (int)(p.getY()+(p.getHeight())-(spread/2)+(Math.random()*spread));
          en.getPhysics().setBothSpeed(3.5f);
          spread = 8;
          bulletSpeed = 3;
