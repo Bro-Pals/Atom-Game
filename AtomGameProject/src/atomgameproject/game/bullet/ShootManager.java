@@ -14,7 +14,7 @@ import simplegames.behaviors.Updatable;
 public class ShootManager implements Updatable {
     
     private boolean canShootRed, canShootBlue, readyToShoot;
-    private int time, endTime, x, y;
+    private int time, time0,time1, time2, time3, endTime, x, y;
     private WorldMember shooter;
     
     public ShootManager(WorldMember shooter, int endTime) {
@@ -23,6 +23,10 @@ public class ShootManager implements Updatable {
         canShootBlue = false;
         readyToShoot = false;
         time = 0;
+        time0 = 0;
+        time1 = 0;
+        time2 = 0;
+        time3 = 0; // pentuple buffereing!
         this.endTime = endTime;
         System.out.println("Created ShootManager with endTime of " + endTime + "");
     }
@@ -30,11 +34,20 @@ public class ShootManager implements Updatable {
     @Override
     public void update(float f) {
         time++;
+        time0++;
+        time1++;
+        time2++;
+        time3++;
+        System.out.println("CanShootRed: " + canShootRed + ", CanShootBlue: " + canShootBlue + ", Time:" + time + ", EndTime:" + endTime + ", ReadyToShoot: " + readyToShoot + "");
     }
     
     public void checkReady() {
-        if (time>=endTime) {
+        if (time>=endTime || time!=time0 || time!=time1 || time!=time2 || time!=time3 || time0!=time1 || time0!=time2  || time0!=time3) {
             time = 0;
+            time0 = 0;
+            time1 = 0;
+            time2 = 0;
+            time3 = 0;
             readyToShoot = true;
         }
     }
@@ -77,9 +90,8 @@ public class ShootManager implements Updatable {
     }
 
     public void setCanShootRed(boolean canShootRed) {
-        this.canShootRed = canShootRed;
-        if (canShootBlue && canShootRed) {
-            stopShooting();
+        if (canShootBlue==false) {
+            this.canShootRed = canShootRed;
         }
     }
 
@@ -88,9 +100,8 @@ public class ShootManager implements Updatable {
     }
 
     public void setCanShootBlue(boolean canShootBlue) {
-        this.canShootBlue = canShootBlue;
-        if (canShootBlue && canShootRed) {
-            stopShooting();
+        if (canShootRed==false) {
+            this.canShootBlue = canShootBlue;
         }
     }
     
