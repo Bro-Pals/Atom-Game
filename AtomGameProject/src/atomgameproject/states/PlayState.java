@@ -17,22 +17,27 @@ import atomgameproject.gui.StabilityTimer;
 import atomgameproject.launcher.config.KeyBindWrapper;
 import atomgameproject.world.EnemySpawner;
 import atomgameproject.world.GameWorld;
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics2D;
+import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import simplegames.animation.GameDrawingPanel;
+import simplegames.inputlisteners.KeyDownListener;
 import simplegames.states.GameState;
 
 /**
  *
  * @author Jonathon
  */
-public class PlayState extends GameState {
+public class PlayState extends GameState implements KeyDownListener {
 
     private GameRenderer renderer;
     private GameWorld world;
     private PlayerAtom player;
     private GuiManager guis;
     private KeyBindWrapper wrapper;
+    private boolean paused;
 
     public PlayState(KeyBindWrapper wrapper) {
         this.wrapper = wrapper;
@@ -41,6 +46,7 @@ public class PlayState extends GameState {
     
     @Override
     public void init(GameDrawingPanel panel) {
+        paused = false;
         renderer = new GameRenderer();
         guis = new GuiManager();
         world = GameWorld.getWorld(); 
@@ -73,6 +79,7 @@ public class PlayState extends GameState {
         panel.addKeyUpListener(player);
         panel.addMouseDownListener(player);
         panel.addMouseUpListener(player);
+        panel.addKeyDownListener(this);
     }
 
     @Override
@@ -80,13 +87,35 @@ public class PlayState extends GameState {
         graphics2d = (Graphics2D) bImage.getGraphics();
         bImage = renderer.draw(bImage, graphics2d);
         bImage = guis.draw(bImage, graphics2d);
+        if (paused) {
+            graphics2d.setFont(new Font(Font.DIALOG, Font.BOLD, 28));
+            graphics2d.setColor(Color.RED);
+            graphics2d.drawString("Paused - Press p to unpause", (AtomGameMain.frameWidth/2)-220, (AtomGameMain.frameHeight/2)-10);
+        }
         return bImage;
     }
 
     @Override
     public void updateState(float diffTime) {
-        world.update(diffTime);
-        world.getCamera().update(diffTime);
-        guis.update(diffTime);
+        if (!paused) {
+            world.update(diffTime);
+            world.getCamera().update(diffTime);
+            guis.update(diffTime);
+        }
+    }
+
+    public void togglePause() {
+        if (paused) {
+            paused = false;
+        } else {
+            paused = true;
+        }
+    }
+    
+    @Override
+    public void reactToKeyDown(KeyEvent ke) {
+        if (ke.getKeyCode()==KeyEvent.VK_P) {
+            togglePause();
+        }
     }
 }

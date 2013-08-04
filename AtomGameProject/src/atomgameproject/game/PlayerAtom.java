@@ -64,12 +64,6 @@ public class PlayerAtom extends GameAtom implements KeyDownListener, KeyUpListen
         if (key==keyBindings.getMovementBinding()[3]) {
             startLeft();
         }
-        if (key==KeyEvent.VK_K) {
-           addNeutron();
-        }
-        if (key==KeyEvent.VK_L) {
-            removeNeutron();
-        }
     }
 
     @Override
