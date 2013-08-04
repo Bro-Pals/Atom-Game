@@ -38,6 +38,7 @@ public class PlayState extends GameState implements KeyDownListener {
     private GuiManager guis;
     private KeyBindWrapper wrapper;
     private boolean paused;
+    private GameDrawingPanel panel;
 
     public PlayState(KeyBindWrapper wrapper) {
         this.wrapper = wrapper;
@@ -48,6 +49,7 @@ public class PlayState extends GameState implements KeyDownListener {
     public void init(GameDrawingPanel panel) {
         paused = false;
         renderer = new GameRenderer();
+        this.panel = panel;
         guis = new GuiManager();
         world = GameWorld.getWorld(); 
         player = new PlayerAtom(((AtomGameMain.worldSizeX/2)-(25)), ((AtomGameMain.worldSizeY/2)-(25)), 50, 50, panel, wrapper);
@@ -91,6 +93,7 @@ public class PlayState extends GameState implements KeyDownListener {
             graphics2d.setFont(new Font(Font.DIALOG, Font.BOLD, 28));
             graphics2d.setColor(Color.RED);
             graphics2d.drawString("Paused - Press p to unpause", (AtomGameMain.frameWidth/2)-220, (AtomGameMain.frameHeight/2)-10);
+            graphics2d.drawString("Press q to go to menu", (AtomGameMain.frameWidth/2)-220, (AtomGameMain.frameHeight/2)+20);
         }
         return bImage;
     }
@@ -116,6 +119,11 @@ public class PlayState extends GameState implements KeyDownListener {
     public void reactToKeyDown(KeyEvent ke) {
         if (ke.getKeyCode()==KeyEvent.VK_P) {
             togglePause();
+        }
+        if (ke.getKeyCode()==KeyEvent.VK_Q) {
+            if (paused) {
+                panel.changeState(new StartState(wrapper));
+            }
         }
     }
 }
