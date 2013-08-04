@@ -177,14 +177,14 @@ public class EnemyAtom extends GameAtom implements Updatable {
          } else {
              if (behavior==EnemyBehavior.STABLE) {
                  behavior = allBehaviors[(int)(Math.random()*(allBehaviors.length))];
-        switch(behavior) {
-            case CIRCLE:
-                radius = 250+(int)(Math.random()*300);
-                break;
-            case SLOWSHOOT:
-                radius = 120+(int)Math.random()*130;
-                break;
-        }
+                switch(behavior) {
+                    case CIRCLE:
+                        radius = 250+(int)(Math.random()*300);
+                        break;
+                    case SLOWSHOOT:
+                        radius = 120+(int)Math.random()*130;
+                        break;
+                }
              }
          }
          switch(behavior) {
