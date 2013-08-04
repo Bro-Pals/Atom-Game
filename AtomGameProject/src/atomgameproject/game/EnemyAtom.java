@@ -118,8 +118,8 @@ public class EnemyAtom extends GameAtom implements Updatable {
       
      public void slowShootingAtPlayer(EnemyAtom en, int radius) {
          PlayerAtom p = GameWorld.getWorld().getPlayer();
-         int targetX = (int)(p.getX()-(spread/2)+(Math.random()*spread));
-         int targetY = (int)(p.getY()-(spread/2)+(Math.random()*spread));
+         int targetX = (int)(p.getX()+(p.getWidth())-(spread/2)+(Math.random()*spread));
+         int targetY = (int)(p.getY()+(p.getHeight())-(spread/2)+(Math.random()*spread));
          en.getPhysics().setBothSpeed(2);
          spread = 3;
          bulletSpeed = 5;
