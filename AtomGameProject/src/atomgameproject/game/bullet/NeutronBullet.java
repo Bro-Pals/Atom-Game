@@ -9,6 +9,7 @@ import atomgameproject.world.GameWorld;
 import atomgameproject.world.WorldMember;
 import atomgameproject.world.components.AtomComponent;
 import java.awt.Color;
+import java.awt.Point;
 
 /**
  *
@@ -24,6 +25,8 @@ public class NeutronBullet extends BulletType {
                 if (affectee instanceof GameAtom) {
                     ((GameAtom)affectee).addNeutron();
                 }
+                /// make bang sprite
+                GameWorld.getWorld().createSprite(new Point((int)parent.getX(), (int)parent.getY()), "img/sprites/collideBlue.png", 10);
                 parent.setShooter(null);
                 parent.remove();
             }
