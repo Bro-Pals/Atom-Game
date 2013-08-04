@@ -124,7 +124,7 @@ public class LauncherFrame extends JFrame {
         accept.setPreferredSize(new Dimension(90, 40));
         accept.setSize(new Dimension(90, 40));
         //Make a button that opens the keybinding dialog
-        JButton bindButton = new JButton("Key bindings (N/A)");
+        JButton bindButton = new JButton("Key bindings");
         bindButton.addActionListener(new OpenKeyBinderListener(this, bindings));
         bindButton.setPreferredSize(new Dimension(150, 40));
         bindButton.setSize(new Dimension(150, 40));
@@ -149,6 +149,10 @@ public class LauncherFrame extends JFrame {
 
     public int getSpawnRate() {
         return spawnRate;
+    }
+
+    public GamePanelSpace getSpace() {
+        return space;
     }
     
     class OpenKeyBinderListener implements ActionListener {
@@ -231,11 +235,11 @@ public class LauncherFrame extends JFrame {
                 System.out.println(EnemySpawner.maxEnemies+"="+maxEnemies);
                 EnemySpawner.spawnSpeed = spawnRate;
                 System.out.println(EnemySpawner.spawnSpeed+"="+spawnRate);
-                space.getTicker().removeListener(picPanel);
-                JFrame f = space.createContainedGamePanel(frameWidth, frameHeight, "Atom-Game", new StartState(getBindings()));
+                getSpace().getTicker().removeListener(picPanel);
+                JFrame f = getSpace().createContainedGamePanel(frameWidth, frameHeight, "Atom-Game", new StartState(getBindings()));
                 f.setLocation((getGraphicsConfiguration().getDevice().getDisplayMode().getWidth()/2)-(f.getWidth()/2), (getGraphicsConfiguration().getDevice().getDisplayMode().getHeight()/2)-(f.getHeight()/2));
                 f.setIconImage(ImageLoader.loadImage("img/Atom-GameIcon.gif"));
-                space.startTicker();
+                getSpace().startTicker();
                 this.parent.dispose();
             }
         }     
