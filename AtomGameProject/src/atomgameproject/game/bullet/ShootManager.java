@@ -78,7 +78,9 @@ public class ShootManager implements Updatable {
 
     public void setCanShootRed(boolean canShootRed) {
         this.canShootRed = canShootRed;
-        canShootBlue = !canShootRed;
+        if (canShootBlue && canShootRed) {
+            stopShooting();
+        }
     }
 
     public boolean isCanShootBlue() {
@@ -87,7 +89,9 @@ public class ShootManager implements Updatable {
 
     public void setCanShootBlue(boolean canShootBlue) {
         this.canShootBlue = canShootBlue;
-        canShootRed = !canShootBlue;
+        if (canShootBlue && canShootRed) {
+            stopShooting();
+        }
     }
     
     public void stopShooting() {
