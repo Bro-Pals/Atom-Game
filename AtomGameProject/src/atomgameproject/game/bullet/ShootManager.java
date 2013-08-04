@@ -14,7 +14,7 @@ import simplegames.behaviors.Updatable;
 public class ShootManager implements Updatable {
     
     private boolean canShootRed, canShootBlue, readyToShoot;
-    private int time, endTime;
+    private int time, endTime, x, y;
     private WorldMember shooter;
     
     public ShootManager(WorldMember shooter, int endTime) {
@@ -39,17 +39,59 @@ public class ShootManager implements Updatable {
         }
     }
     
-    public void shootRed(int x, int y) {
-        checkReady();
-        if (readyToShoot) {
-            GameBullet go = new GameBullet(this.shooter, x, y, 6, new NeutronBullet());
+    public void shootRed() {
+        if (canShootRed) {
+            checkReady();
+            if (readyToShoot) {
+                GameBullet go = new GameBullet(this.shooter, x, y, 6, new NeutronBullet());
+                readyToShoot = false;
+            }
         }
     }
     
-    public void shootBlue(int x, int y) {
-        checkReady();
-        if (readyToShoot) {
-            GameBullet go = new GameBullet(this.shooter, x, y, 6, new AntiNeutronBullet());
+    public void shootBlue() {
+        if (canShootBlue) {
+            checkReady();
+            if (readyToShoot) {
+                GameBullet go = new GameBullet(this.shooter, x, y, 6, new AntiNeutronBullet());
+                readyToShoot = false;
+            }
         }
+    }
+    
+    public void tryToFire() {
+        shootBlue();
+        shootRed();
+    }
+
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public void setY(int y) {
+        this.y = y;
+    }
+
+    public boolean isCanShootRed() {
+        return canShootRed;
+    }
+
+    public void setCanShootRed(boolean canShootRed) {
+        this.canShootRed = canShootRed;
+        canShootBlue = !canShootRed;
+    }
+
+    public boolean isCanShootBlue() {
+        return canShootBlue;
+    }
+
+    public void setCanShootBlue(boolean canShootBlue) {
+        this.canShootBlue = canShootBlue;
+        canShootRed = !canShootBlue;
+    }
+    
+    public void stopShooting() {
+        canShootBlue = false;
+        canShootRed = false;
     }
 }

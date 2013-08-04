@@ -7,6 +7,7 @@ package atomgameproject.game;
 import atomgameproject.game.bullet.AntiNeutronBullet;
 import atomgameproject.game.bullet.GameBullet;
 import atomgameproject.game.bullet.NeutronBullet;
+import atomgameproject.game.bullet.ShootManager;
 import atomgameproject.launcher.config.KeyBindWrapper;
 import atomgameproject.world.Camera;
 import atomgameproject.world.GameWorld;
@@ -32,11 +33,13 @@ public class PlayerAtom extends GameAtom implements KeyDownListener, KeyUpListen
     private GameWorld world;
     private GameDrawingPanel panel;
     private int bulletSpeed;
+    private ShootManager sm;
     
     public PlayerAtom(int x, int y, int width, int height, GameDrawingPanel panel, KeyBindWrapper keyBindings) {
         super(x, y, width, height);
         world = GameWorld.getWorld();
         compass = new boolean[4];
+        sm = new ShootManager(this, 20);
         bulletSpeed = 11;
         this.panel = panel;
         this.keyBindings = keyBindings;
@@ -143,6 +146,8 @@ public class PlayerAtom extends GameAtom implements KeyDownListener, KeyUpListen
             spc.setxVel(-spc.getxSpeed());
           //  System.out.println("Move left! "+spc.getxVel());
         }
+        sm.update(timeDiff);
+        sm.tryToFire();
         ///Handle shooting
         int mouseInWorldX = 0, mouseInWorldY = 0, worldCamX = 0, worldCamY = 0, bulletLocX = 0, bulletLocY = 0;
         try {    
@@ -153,7 +158,8 @@ public class PlayerAtom extends GameAtom implements KeyDownListener, KeyUpListen
         worldCamY = (int)GameWorld.getWorld().getCamera().getY();
         bulletLocX = mouseInWorldX+worldCamX;
         bulletLocY = mouseInWorldY+worldCamY;
-            
+        sm.setX(bulletLocX);
+        sm.setY(bulletLocY);
     //    System.out.println("Shooting1 is " + shooting[0] + " and Shooting2 is " + shooting[1] + "");
         Camera cam = GameWorld.getWorld().getCamera();
         cam.setLocation((int)(getX()+(getWidth()/2)-(cam.getWidth())/2),(int)(getY()+(getHeight()/2)-(cam.getHeight())/2));
@@ -164,12 +170,17 @@ public class PlayerAtom extends GameAtom implements KeyDownListener, KeyUpListen
 
     @Override
     public void reactToMouseDown(int x, int y, MouseEvent e) {
-        
+        if (e.getButton()==keyBindings.getShootBinding()[0]) {
+            sm.setCanShootRed(true);
+        }
+        if (e.getButton()==keyBindings.getShootBinding()[1]) {
+            sm.setCanShootBlue(true);
+        }
     }
 
     @Override
     public void reactToMouseUp(int x, int y, MouseEvent e) {
-        
+        sm.stopShooting();
     }
 
     public int getBulletSpeed() {
