@@ -56,6 +56,9 @@ public class StartState extends GameState implements MouseDownListener {
         graphics2d.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 72));
         graphics2d.setColor(Color.GREEN);
         graphics2d.drawString("Atom Game", (AtomGameMain.frameWidth/2)-190, (AtomGameMain.frameHeight/6));
+        graphics2d.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 18));
+        graphics2d.drawString("Made for the Arbitrary Game Jam #01", (AtomGameMain.frameWidth/2)-180, (AtomGameMain.frameHeight/6)+30);
+        graphics2d.drawString("Created by Jon Prehn and Kevin Prehn", (AtomGameMain.frameWidth/2)-180, (AtomGameMain.frameHeight/6)+50);
         graphics2d.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 40));
         graphics2d.setColor(Color.BLACK);
         graphics2d.drawString("Start", (int)startButton.getBox().getX()+70, (int)startButton.getBox().getY()+50);
