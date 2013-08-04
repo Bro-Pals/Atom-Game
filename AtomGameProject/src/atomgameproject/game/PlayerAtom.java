@@ -34,6 +34,7 @@ public class PlayerAtom extends GameAtom implements KeyDownListener, KeyUpListen
     private GameDrawingPanel panel;
     private int bulletSpeed;
     private ShootManager sm;
+    private int shotCount;
     
     public PlayerAtom(int x, int y, int width, int height, GameDrawingPanel panel, KeyBindWrapper keyBindings) {
         super(x, y, width, height);
@@ -42,6 +43,7 @@ public class PlayerAtom extends GameAtom implements KeyDownListener, KeyUpListen
         sm = new ShootManager(this, 20);
         bulletSpeed = 11;
         this.panel = panel;
+        shotCount = 0;
         this.keyBindings = keyBindings;
         getAtomComponent().setParent(this);
         getAtomComponent().setProtons(54);
@@ -186,5 +188,17 @@ public class PlayerAtom extends GameAtom implements KeyDownListener, KeyUpListen
 
     public void setBulletSpeed(int bulletSpeed) {
         this.bulletSpeed = bulletSpeed;
+    }
+
+    public int getShotCount() {
+        return shotCount;
+    }
+
+    public void setShotCount(int shotCount) {
+        this.shotCount = shotCount;
+    }
+    
+    public void countShot() {
+        this.shotCount++;
     }
 }

@@ -5,6 +5,7 @@
 package atomgameproject.gui;
 
 import atomgameproject.game.PlayerAtom;
+import atomgameproject.launcher.config.KeyBindWrapper;
 import atomgameproject.states.GameOverState;
 import atomgameproject.world.components.Stability;
 import atomgameproject.world.components.StabilityTable;
@@ -22,15 +23,19 @@ public class StabilityTimer extends GuiClock {
     
     private PlayerAtom player;
     private GameDrawingPanel panel;
+    private GuiClock clock;
     private boolean counting;
+    private KeyBindWrapper w;
     
-    public StabilityTimer(PlayerAtom player, GameDrawingPanel panel) {
+    public StabilityTimer(PlayerAtom player, GameDrawingPanel panel, GuiClock clock, KeyBindWrapper w) {
         super();
         this.player = player;
         this.panel = panel;
         secondsPassed = 20;
         counting = false;
+        this.clock = clock;
         setY(130);
+        this.w = w;
     }
     
     @Override
@@ -55,7 +60,7 @@ public class StabilityTimer extends GuiClock {
                     secondsPassed = 60;
                     minutesPassed = minutesPassed - 1;
                     if (minutesPassed<0) {
-                        panel.changeState(new GameOverState());
+                        panel.changeState(new GameOverState(player.getShotCount(), clock.getMinutesPassed(), clock.getSecondsPassed(), w));
                     }
                 }
             }

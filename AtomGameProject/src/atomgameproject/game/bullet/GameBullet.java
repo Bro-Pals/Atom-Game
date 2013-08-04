@@ -5,7 +5,9 @@
 package atomgameproject.game.bullet;
 
 import atomgameproject.behaviors.ReactsToCollide;
+import atomgameproject.game.EnemyAtom;
 import atomgameproject.game.GameEntity;
+import atomgameproject.game.PlayerAtom;
 import atomgameproject.world.GameWorld;
 import atomgameproject.world.WorldMember;
 import atomgameproject.world.components.BulletPhysicsComponent;
@@ -92,6 +94,9 @@ public class GameBullet extends WorldMember implements ReactsToCollide {
     @Override
     public void reactToCollide(WorldMember hit) {
         if (hit!=null && !hit.equals(shooter) && !hit.equals(this) && !(hit instanceof GameBullet)) {
+            if ((shooter instanceof PlayerAtom) && (hit instanceof EnemyAtom)) {
+                ((PlayerAtom)shooter).countShot();
+            }
             type.invokeBulletAbility(hit);
             this.remove();
         }
