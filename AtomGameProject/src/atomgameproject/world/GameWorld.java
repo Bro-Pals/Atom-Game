@@ -10,6 +10,7 @@ import atomgameproject.game.PlayerAtom;
 import atomgameproject.game.bullet.GameBullet;
 import atomgameproject.world.components.StabilityTable;
 import java.awt.Graphics2D;
+import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
@@ -28,9 +29,10 @@ public class GameWorld implements Updatable {
     private int boundryX, boundryY;
     private PlayerAtom player;
     private EnemySpawner spawner;
-    
+    private ArrayList<Sprite> sprites;
     public GameWorld() {
         members = new ArrayList<>();
+        sprites = new ArrayList<Sprite>();
     }
     
     public void addCamera(int sizeX, int sizeY) {
@@ -116,4 +118,17 @@ public class GameWorld implements Updatable {
         }
         return null;
     }
+    
+    public ArrayList<Sprite> getSprites() {
+        return sprites;
+    }
+    
+    public void createSprite(Point pos, String imgUrl, int lspan, int xV, int yV) {
+        sprites.add(new Sprite(pos, lspan, imgUrl, xV, yV));
+    }
+    
+    public void createSprite(Point pos, String imgUrl, int lspan) {
+        sprites.add(new Sprite(pos, lspan, imgUrl));
+    }
+    
 }
